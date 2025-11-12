@@ -1,0 +1,238 @@
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /.devcontainer
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /.github/scripts
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /cypress
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /docker/images/n8n-base
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /docker/images/n8n
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /docker/images/runners
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /docker/images/runners
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/ai-workflow-builder.ee
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/api-types
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/backend-common
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/backend-test-utils
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /packages/@n8n/benchmark
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/benchmark
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/client-oauth2
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/codemirror-lang-sql
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/codemirror-lang
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/config
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/constants
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/create-node
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/db
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/decorators
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/di
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/errors
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/eslint-config
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/eslint-plugin-community-nodes
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/extension-sdk
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/imap
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/json-schema-to-zod
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/node-cli
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/node-cli/src/template/templates/declarative/custom/template
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/node-cli/src/template/templates/declarative/github-issues/template
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/node-cli/src/template/templates/programmatic/example/template
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/nodes-langchain
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/permissions
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/scan-community-package
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/stylelint-config
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /packages/@n8n/task-runner-python
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/task-runner
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/typescript-config
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/utils
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/@n8n/vitest-config
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/cli
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/core
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/extensions/insights
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/@n8n/chat
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/@n8n/composables
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/@n8n/design-system
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/@n8n/i18n
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/@n8n/rest-api-client
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/@n8n/stores
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/@n8n/storybook
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/frontend/editor-ui
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/node-dev
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/nodes-base
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/testing/containers
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/testing/playwright
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /packages/workflow
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /.github/workflows
+    schedule:
+      interval: weekly
