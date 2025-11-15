@@ -34,15 +34,15 @@ export class UrlService {
 		}
 		return `${protocol}://${host}:${port}${path}`;
 	}
-/** Remove leading and trailing double quotes from a URL. */
+/** Remove leading and trailing double quotes from a URL. */	
 	private trimQuotes(url?: string) {
 // AI FIX START
 		let result = url ?? '';
 		while (result.startsWith('"')) {
-			result = result.slice(1);
+			result = result.substring(1);
 		}
 		while (result.endsWith('"')) {
-			result = result.slice(0, -1);
+			result = result.substring(0, result.length - 1);
 		}
 		return result;
 // AI FIX END
