@@ -577,13 +577,12 @@ export class WorkflowExecute {
 this.runExecutionData.executionData!.nodeExecutionStack[enqueueFn](executionStackItem);
 				// Remove the data from waiting
 // AI FIX START
-        if (this.runExecutionData.executionData!.waitingExecution[connectionData.node] &&
-            Object.hasOwnProperty.call(this.runExecutionData.executionData!.waitingExecution[connectionData.node], waitingNodeIndex)) {
-            delete this.runExecutionData.executionData!.waitingExecution[connectionData.node][waitingNodeIndex];
-        }
+        if (connectionData.node !== '__proto__' && connectionData.node !== 'constructor' && connectionData.node !== 'prototype') {
+				  delete this.runExecutionData.executionData!.waitingExecution[connectionData.node][
+						waitingNodeIndex
+					];
+          delete this.runExecutionData.executionData!.waitingExecutionSource[connectionData.node][
 // AI FIX END
-				];
-				delete this.runExecutionData.executionData!.waitingExecutionSource[connectionData.node][
 
 				if (
 					Object.keys(this.runExecutionData.executionData!.waitingExecution[connectionData.node])
