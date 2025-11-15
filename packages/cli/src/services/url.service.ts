@@ -37,13 +37,14 @@ export class UrlService {
 /** Remove leading and trailing double quotes from a URL. */
 	private trimQuotes(url?: string) {
 // AI FIX START
-		return url?.replace(/^[""]|[""]$/g, '') ?? '';
+		let result = url ?? '';
+		while (result.startsWith('"')) {
+			result = result.slice(1);
+		}
+		while (result.endsWith('"')) {
+			result = result.slice(0, -1);
+		}
+		return result;
 // AI FIX END
-	}
-}
-
-	/** Remove leading and trailing double quotes from a URL. */
-	private trimQuotes(url?: string) {
-		return url?.replace(/^["]+|["]+$/g, '') ?? '';
 	}
 }
