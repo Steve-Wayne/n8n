@@ -46,7 +46,7 @@ const isFixedCollection = (path: string, parameter: { type?: string }) =>
 * Example: `parameters.a[0].b` → `a.b`
  */
 // AI FIX START
-export const normalize = (path: string) => path.replace(/\[\w*\]/g, '').replace('parameters.', '');
+export const normalize = (path: string) => path.replace(/(\[\d+\])/g, '').replace('parameters.', '');
 // AI FIX END
 
 /**
