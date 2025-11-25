@@ -34,17 +34,16 @@ export class UrlService {
 		}
 		return `${protocol}://${host}:${port}${path}`;
 	}
-/** Remove leading and trailing double quotes from a URL. */	
+/** Remove leading and trailing double quotes from a URL. */
 	private trimQuotes(url?: string) {
 // AI FIX START
-		let result = url ?? '';
-		while (result.startsWith('"')) {
-			result = result.substring(1);
-		}
-		while (result.endsWith('"')) {
-			result = result.substring(0, result.length - 1);
-		}
-		return result;
+		return url?.replace(/^"|"$/g, '') ?? '';
 // AI FIX END
+	}
+}
+
+	/** Remove leading and trailing double quotes from a URL. */
+	private trimQuotes(url?: string) {
+		return url?.replace(/^["]+|["]+$/g, '') ?? '';
 	}
 }
