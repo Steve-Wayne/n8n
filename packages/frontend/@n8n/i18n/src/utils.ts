@@ -43,6 +43,14 @@ const isFixedCollection = (path: string, parameter: { type?: string }) =>
 
 /**
  * Remove all indices and the `parameters.` prefix from a parameter path.
+* Example: `parameters.a[0].b` → `a.b`
+ */
+// AI FIX START
+export const normalize = (path: string) => path.replace(/\[.*?\]/g, '').replace('parameters.', '');
+// AI FIX END
+
+/**
+ * Insert `'options'` and `'values'` on an alternating basis in a string array of
  *
  * Example: `parameters.a[0].b` → `a.b`
  */
