@@ -574,21 +574,15 @@ export class WorkflowExecute {
 						];
 				}
 
-this.runExecutionData.executionData!.nodeExecutionStack[enqueueFn](executionStackItem);
+				this.runExecutionData.executionData!.nodeExecutionStack[enqueueFn](executionStackItem);
+
 				// Remove the data from waiting
-// AI FIX START
-				const waitingExecution = this.runExecutionData.executionData!.waitingExecution[connectionData.node];
-				if (waitingExecution) {
-					delete waitingExecution[waitingNodeIndex];
-				}
-				const waitingExecutionSource = this.runExecutionData.executionData!.waitingExecutionSource[connectionData.node];
-				if (waitingExecutionSource) {
-					delete waitingExecutionSource[waitingNodeIndex];
-				}
-// AI FIX END
+				delete this.runExecutionData.executionData!.waitingExecution[connectionData.node][
 					waitingNodeIndex
 				];
 				delete this.runExecutionData.executionData!.waitingExecutionSource[connectionData.node][
+					waitingNodeIndex
+				];
 
 				if (
 					Object.keys(this.runExecutionData.executionData!.waitingExecution[connectionData.node])
