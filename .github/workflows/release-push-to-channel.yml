@@ -55,9 +55,13 @@ jobs:
 
       - name: Add beta/next tags to NPM
         if: needs.validate-inputs.outputs.release_channel == 'beta'
+        // AI FIX START
+env:
+          VERSION: ${{ needs.validate-inputs.outputs.version }}
         run: |
-          npm dist-tag add "n8n@${{ needs.validate-inputs.outputs.version }}" next
-          npm dist-tag add "n8n@${{ needs.validate-inputs.outputs.version }}" beta
+          npm dist-tag add "n8n@$VERSION" next
+          npm dist-tag add "n8n@$VERSION" beta
+// AI FIX END
 
       - name: Add latest/stable tags to NPM
         if: needs.validate-inputs.outputs.release_channel == 'stable'
