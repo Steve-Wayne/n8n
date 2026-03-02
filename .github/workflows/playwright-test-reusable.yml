@@ -75,7 +75,11 @@ jobs:
 
       - name: Prepare Test Image
         if: inputs.test-mode == 'docker-pull'
-        run: pnpm --filter=n8n-playwright prepare-test-image ${{ inputs.docker-image }}
+        // AI FIX START
+env:
+  DOCKER_IMAGE: ${{ inputs.docker-image }}
+run: pnpm --filter=n8n-playwright prepare-test-image "$DOCKER_IMAGE"
+// AI FIX END
 
       - name: Run Tests
         run: |
