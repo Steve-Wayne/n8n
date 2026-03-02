@@ -61,64 +61,74 @@ jobs:
       n8n_version: ${{ steps.context.outputs.n8n_version }}
       push_enabled: ${{ steps.context.outputs.push_enabled }}
       build_matrix: ${{ steps.matrix.outputs.matrix }}
-    steps:
+    // AI FIX START
+steps:
       - name: Determine build context values
         id: context
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          REF_NAME: ${{ github.ref_name }}
+          RELEASE_TYPE: ${{ inputs.release_type }}
+          N8N_VERSION: ${{ inputs.n8n_version }}
+          PUSH_ENABLED: ${{ inputs.push_enabled }}
+          PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
+
         run: |
           # Debug info
-          echo "Event: ${{ github.event_name }}"
-          echo "Ref: ${{ github.ref }}"
-          echo "Ref Name: ${{ github.ref_name }}"
-
+          echo "Event: $EVENT_NAME"
+          echo "Ref: $REF"
+          echo "Ref Name: $REF_NAME"
+          
           # Check if called by another workflow (has n8n_version input)
-          if [[ -n "${{ inputs.n8n_version }}" ]]; then
+          if [[ -n "$N8N_VERSION" ]]; then
             # workflow_call - used for releases
             {
-              echo "release_type=${{ inputs.release_type }}"
-              echo "n8n_version=${{ inputs.n8n_version }}"
-              echo "push_enabled=${{ inputs.push_enabled }}"
+              echo "release_type=$RELEASE_TYPE"
+              echo "n8n_version=$N8N_VERSION"
+              echo "push_enabled=$PUSH_ENABLED"
             } >> "$GITHUB_OUTPUT"
-
-          elif [[ "${{ github.event_name }}" == "schedule" ]]; then
+          
+        elif [[ "$EVENT_NAME" == "schedule" ]]; then
             # Nightly builds
             {
               echo "release_type=nightly"
               echo "n8n_version=snapshot"
               echo "push_enabled=true"
             } >> "$GITHUB_OUTPUT"
-
-          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          
+        elif [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
             # Build branches for Nathan deploy
-            BRANCH_NAME="${{ github.ref_name }}"
-
+            BRANCH_NAME="$REF_NAME"
+            
             # Fallback to parsing ref if ref_name is empty
-            if [[ -z "$BRANCH_NAME" ]] && [[ "${{ github.ref }}" =~ ^refs/heads/(.+)$ ]]; then
+            if [[ -z "$BRANCH_NAME" ]] && [[ "$REF" =~ ^refs/heads/(.+)$ ]]; then
               BRANCH_NAME="${BASH_REMATCH[1]}"
             fi
-
+            
             # Sanitize branch name for Docker tag
             SAFE_BRANCH_NAME=$(echo "$BRANCH_NAME" | tr '/' '-' | tr -cd '[:alnum:]-_')
-
+            
             if [[ -z "$SAFE_BRANCH_NAME" ]]; then
               echo "Error: Could not determine valid branch name"
               exit 1
             fi
-
+            
             {
               echo "release_type=branch"
-              echo "n8n_version=branch-${SAFE_BRANCH_NAME}"
-              echo "push_enabled=${{ inputs.push_enabled }}"
+              echo "n8n_version=branch-$SAFE_BRANCH_NAME"
+              echo "push_enabled=$PUSH_ENABLED"
             } >> "$GITHUB_OUTPUT"
-
-          elif [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          
+        elif [[ "$EVENT_NAME" == "pull_request" ]]; then
             # Direct PR triggers for testing Dockerfile changes
             {
               echo "release_type=dev"
-              echo "n8n_version=pr-${{ github.event.pull_request.number }}"
+              echo "n8n_version=pr-$PULL_REQUEST_NUMBER"
               echo "push_enabled=false"
             } >> "$GITHUB_OUTPUT"
           fi
-
+          
           # Output summary for logs
           echo "=== Build Context Summary ==="
           echo "Release type: $(grep release_type "$GITHUB_OUTPUT" | cut -d= -f2)"
@@ -128,6 +138,7 @@ jobs:
       - name: Determine build matrix
         id: matrix
         run: |
+// AI FIX END
           RELEASE_TYPE="${{ steps.context.outputs.release_type }}"
 
           # Branch builds only need AMD64, everything else needs both platforms
