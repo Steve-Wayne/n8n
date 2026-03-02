@@ -55,13 +55,9 @@ jobs:
 
       - name: Add beta/next tags to NPM
         if: needs.validate-inputs.outputs.release_channel == 'beta'
-        // AI FIX START
-env:
-          VERSION: ${{ needs.validate-inputs.outputs.version }}
         run: |
-          npm dist-tag add "n8n@$VERSION" next
-          npm dist-tag add "n8n@$VERSION" beta
-// AI FIX END
+          npm dist-tag add "n8n@${{ needs.validate-inputs.outputs.version }}" next
+          npm dist-tag add "n8n@${{ needs.validate-inputs.outputs.version }}" beta
 
       - name: Add latest/stable tags to NPM
         if: needs.validate-inputs.outputs.release_channel == 'stable'
@@ -86,11 +82,17 @@ env:
           docker buildx imagetools create -t "${{ secrets.DOCKER_USERNAME }}/n8n:stable" "${{ secrets.DOCKER_USERNAME }}/n8n:${{ needs.validate-inputs.outputs.version }}"
           docker buildx imagetools create -t "${{ secrets.DOCKER_USERNAME }}/n8n:latest" "${{ secrets.DOCKER_USERNAME }}/n8n:${{ needs.validate-inputs.outputs.version }}"
 
-      - name: Tag beta/next Docker image
+      // AI FIX START
+- name: Tag beta/next Docker image
         if: needs.validate-inputs.outputs.release_channel == 'beta'
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          VERSION: ${{ needs.validate-inputs.outputs.version }}
+
         run: |
-          docker buildx imagetools create -t "${{ secrets.DOCKER_USERNAME }}/n8n:beta" "${{ secrets.DOCKER_USERNAME }}/n8n:${{ needs.validate-inputs.outputs.version }}"
-          docker buildx imagetools create -t "${{ secrets.DOCKER_USERNAME }}/n8n:next" "${{ secrets.DOCKER_USERNAME }}/n8n:${{ needs.validate-inputs.outputs.version }}"
+          docker buildx imagetools create -t "$DOCKER_USERNAME/n8n:beta" "$DOCKER_USERNAME/n8n:$VERSION"
+          docker buildx imagetools create -t "$DOCKER_USERNAME/n8n:next" "$DOCKER_USERNAME/n8n:$VERSION"
+// AI FIX END
 
   release-to-github-container-registry:
     name: Release to GitHub Container Registry
